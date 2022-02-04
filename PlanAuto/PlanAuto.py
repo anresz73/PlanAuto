@@ -33,5 +33,5 @@ class PlanAuto:
     
     def get_cash_flow(self):
         """
-        Llama 
+        Llama función cashflow
         """
