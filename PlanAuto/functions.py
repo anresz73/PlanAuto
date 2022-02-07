@@ -25,6 +25,47 @@ def gen_cash_flow(file_name):
                          dtype = {'cuotanro' : np.int32, 'importe' : np.float32})
     return data
 
+###
+#   Rate Simulators / Generators
+###
+
+def _random_simulator(x0, scale, n):
+    """
+    Generates a random interest rate
+    """
+    if isinstance(x0, (int, float)) and isinstance(n, int):
+        return np.random.normal(loc = x0, scale = scale, size = n)
+    elif isinstance(x0, (list, np.ndarray)):
+        return np.random.normal(loc = x0, scale = scale, size = (n, len(x0))).transpose().ravel()
+
+def _gbm_simulator(mu, sigma, n, x0, dt = .1):
+    """
+    Geometric Brownian Motion generator.
+    mu : float - mean of data return / list - return appended simulation with mu's'
+    sigma : float - standard deviation of data return
+    n : int - sample size
+    x0 : float - initial rate
+    """
+    if isinstance(mu, float):
+        x = np.exp(
+                   (mu - sigma ** 2 / 2.) * dt
+                   + sigma * np.random.normal(0, np.sqrt(dt), size = (1, n)).T
+        )
+        x = np.vstack([[1.], x])
+        x = x0 * x.cumprod(axis = 0)
+        return x
+    elif isinstance(mu, (list, np.ndarray)):
+        for mu_i in mu:
+            try:
+                x0 = result[-1].item()
+            except NameError:
+                x0 = x0
+                result = [x0]
+            result = np.append(result, 
+                               _gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0)[1:])
+            #result.append(_gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0))
+        return result
+
 def inst_to_ann(r):
     """
     Converts short rate to an annualized rate
