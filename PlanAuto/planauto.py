@@ -10,6 +10,9 @@
 
 # from .armado_cash_flow import ArmadoCashFlow
 
+from .constants import constants
+from .functions import *
+
 class PlanAuto:
     """
     Arbitrador de Planes y Capital

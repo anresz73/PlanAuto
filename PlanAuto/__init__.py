@@ -8,4 +8,4 @@
 # https://github.com/anresz73/PlanAuto
 #
 
-from .planauto import PlanAuto
+#from .planauto import PlanAuto

@@ -13,7 +13,7 @@ Constantes para el seteo
 """
 
 from pandas import read_excel
-from .functions import gen_cash_flow
+from ..functions import functions
 
 # Constantes
 

@@ -12,6 +12,8 @@
 Functions to use in PlanAuto
 """
 
+from ..constants import *
+
 import pandas as pd
 import numpy as np
 
