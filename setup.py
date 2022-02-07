@@ -9,9 +9,16 @@ Created on Thu Feb  3 16:07:25 2022
 
 # Libs
 from os import path
+from setuptools import setup, find_packages
 import io
 
 here = path.abspath(path.dirname(__file__))
 
 with io.open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
+    
+setup(
+      name = 'PlanAuto',
+      packages = find_packages(),
+      long_description = long_description,
+      )
