@@ -62,9 +62,27 @@ def _gbm_simulator(mu, sigma, n, x0, dt = .1):
                 x0 = x0
                 result = [x0]
             result = np.append(result, 
-                               _gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0)[1:])
+                               _gbm_simulator(mu = mu_i, sigma = sigma, n = n, x0 = x0)[1:])
             #result.append(_gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0))
         return result
+
+def _generator(df):
+    """
+    generates DataFrame with Projected Payments
+    """
+    
+
+###
+# Aux Functions
+###
+
+def _clip(data, lim):
+    """
+    Clip edges in given data.
+    data 
+    lim
+    """
+    
 
 def inst_to_ann(r):
     """
