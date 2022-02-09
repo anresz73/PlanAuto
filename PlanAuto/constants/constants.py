@@ -21,6 +21,7 @@ VALOR_AUTO = 2400000.
 VALOR_CAPITALIZAR = 1200000.
 TASA_INTERES = .3
 INFLACION_MENSUAL = .03
+MAXIMO_AUMENTO = .018
 CASH_FLOW = gen_cash_flow(r'./PlanAuto/data/data.ods')
 
 #CASH_FLOW = #data['importe'].sum()

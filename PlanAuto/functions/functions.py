@@ -68,10 +68,25 @@ def _gbm_simulator(mu, sigma, n, x0, dt = .1):
             #result.append(_gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0))
         return result
 
-def _generator(df):
+def _generator(payments, first_price , clip_i, rate_function, *args):
     """
     generates DataFrame with Projected Payments
+    Needed to be optimized
     """
+    data_array = np.empty(shape = (payments.shape[0], 4))
+    data_array[:, 0] = payments
+    data_array[:, 1] = np.hstack(
+        ([0.], 
+         np.diff(
+             (rate_function + 1.).cumprod() * first_price)
+         )
+        ) / 12.
+    data_array[0, 2] = data_array[0,0]
+    for e in range(1, data_array.shape[0]):
+        data_array[e, 2] = min(data_array[e, 0] * (1. + clip_i), 
+                               data_array[e, 0:2].sum())
+        data_array[e:, 0] *= data_array[e, 2] / data_array[e, 0]
+    return data_array
     
 
 ###
