@@ -12,7 +12,7 @@
 Functions to use in PlanAuto
 """
 
-from ..constants import *
+#from ..constants import *
 
 import pandas as pd
 import numpy as np

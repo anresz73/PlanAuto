@@ -8,6 +8,4 @@
 # https://github.com/anresz73/PlanAuto
 #
 
-#from .planauto import PlanAuto
-from .constants import constants
-from .functions import functions
+import PlanAuto
