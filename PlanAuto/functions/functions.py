@@ -14,6 +14,7 @@ Functions to use in PlanAuto
 
 #from ..constants import *
 
+from array import array
 import pandas as pd
 import numpy as np
 
@@ -88,6 +89,43 @@ def _generator(payments, first_price , clip_i, rate_function, *args):
         data_array[e:, 0] *= data_array[e, 2] / data_array[e, 0]
     return data_array
     
+def _capitalizator(
+    ini_capital,
+    annual_rate,
+    n_period,
+    n_years,
+    mid_payments = None,
+    jitter = None
+    ):
+    """
+    Args:
+        ini_capital ([float]): [Initial Value to be Capitalized]
+        annual_rate ([float]): [Annual rate]
+        n_period ([int]): [Number of periods per year to be Capitalized]
+        n_years ([int]): [Number of Years]
+        mid_payments ([float or np.ndarray]): [Mid payments to be made from capitalizaton]
+        jitter ([Bool]): [If True add randomness in interest]
+    Returns:
+        [np.ndarray]: [Period Payments]
+    """
+    if mid_payments is None:
+        array_capitalization = np.repeat(1. + annual_rate / n_period, n_years * n_period).cumprod()
+        result = ini_capital * array_capitalization
+    else:
+        n_payments = n_years * n_period // len(mid_payments)
+        N, I = int(n_period * n_years), 1. + annual_rate / n_period
+        rates = np.random.normal(I, jitter, N) if jitter else np.repeat(I, N)
+        result = np.empty(N)
+        result[0] = ini_capital
+        for e in range(1, N):
+            result[e] = result[e - 1] * rates[e]
+            if e % n_payments == 0:
+                try:
+                    result[e] -= mid_payments[e // n_payments - 1]
+                except IndexError:
+                    pass
+    return result
+
 
 ###
 # Aux Functions
