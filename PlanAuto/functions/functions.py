@@ -14,7 +14,7 @@ Functions to use in PlanAuto
 
 #from ..constants import *
 
-from array import array
+#from array import array
 import pandas as pd
 import numpy as np
 
@@ -118,7 +118,7 @@ def _capitalizator(
         result = np.empty(N)
         result[0] = ini_capital
         for e in range(1, N):
-            result[e] = result[e - 1] * rates[e]
+            result[e] = result[e - 1] * rates[e] if result[e - 1] > 0. else result[e - 1]
             if e % n_payments == 0:
                 try:
                     result[e] -= mid_payments[e // n_payments - 1]

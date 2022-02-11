@@ -8,4 +8,4 @@
 # https://github.com/anresz73/PlanAuto
 #
 
-#from .constants import *
+from .constants import *

@@ -8,4 +8,8 @@
 # https://github.com/anresz73/PlanAuto
 #
 
-#from .functions import *
+from .functions import (
+    _generator,
+    _capitalizator,
+    _random_simulator
+)
