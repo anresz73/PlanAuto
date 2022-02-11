@@ -3,6 +3,7 @@ test.py
 
 # Folders
 /AutoGen
+/.venv
 
 # Compilers
 __pycache__/
