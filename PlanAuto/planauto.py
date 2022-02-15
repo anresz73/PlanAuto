@@ -11,6 +11,7 @@
 
 import pandas as pd
 import numpy as np
+from itertools import combinations
 
 from .constants import *
 from .functions import (
@@ -58,7 +59,7 @@ class PlanAuto:
             payments = self.cash_flow, 
             first_price = self.valor_capital, 
             clip_i = self.clip_rate, 
-            rate_function = _random_simulator(
+            simulated_flow = _random_simulator(
                 x0 = self.inflacion_mensual, 
                 scale = .005, 
                 n = len(self.cash_flow)
@@ -73,4 +74,23 @@ class PlanAuto:
             mid_payments = test[:, 2]
             )
         
-        return pd.Series(capital).round(2)
+        return pd.Series(capital)
+
+    def gbm_simulator(
+        self):
+        pass
+
+    def monte_carlo_simulator(
+        self,
+        size = 100
+        ):
+        """
+        Monte Carlo Simulation
+        Args:
+            size : int - size of each simulation
+        """
+        result = []
+        for e in range(size):
+            result.append(self.get_cash_flow())
+        return pd.DataFrame(result).T
+

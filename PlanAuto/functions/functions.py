@@ -1,4 +1,4 @@
-#!/.venv/bin/python3
+#!.venv/bin/python3
 # -*- coding: utf-8 -*-
 #
 # Created on Fri Feb  4 17:35:09 2022
@@ -68,7 +68,7 @@ def _gbm_simulator(mu, sigma, n, x0, dt = .1):
             #result.append(_gbm(mu = mu_i, sigma = sigma, n = n, x0 = x0))
         return result
 
-def _generator(payments, first_price , clip_i, rate_function, *args):
+def _generator(payments, first_price , clip_i, simulated_flow):
     """
     generates DataFrame with Projected Payments
     Needed to be optimized
@@ -78,7 +78,7 @@ def _generator(payments, first_price , clip_i, rate_function, *args):
     data_array[:, 1] = np.hstack(
         ([0.], 
          np.diff(
-             (rate_function + 1.).cumprod() * first_price)
+             (simulated_flow + 1.).cumprod() * first_price)
          )
         ) / 12.
     data_array[0, 2] = data_array[0,0]
