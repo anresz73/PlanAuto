@@ -1,8 +1,11 @@
-"""
-Created on Thu Feb  3 16:07:25 2022
-
-@author: anresz73
-"""
+#!.venv/bin/python3
+# -*- coding: utf-8 -*-
+#
+# Created on Fri Feb  4 17:35:09 2022
+#
+# Arbitrador de Planes vs Capitalización
+#
+# https://github.com/anresz73/PlanAuto
 
 ## PlanAuto
 # Arbitrador de un plan con Capital Amortizado de alguna manera
